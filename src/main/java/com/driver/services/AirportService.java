@@ -8,6 +8,7 @@ import com.driver.repositories.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class AirportService {
         for (Airport airport : airportList) {
 
             if (noOfTerminals < airport.getNoOfTerminals()) {
+                noOfTerminals = airport.getNoOfTerminals();
+                airportName = airport.getAirportName();
+            } else if (noOfTerminals == airport.getNoOfTerminals() && airportName.compareTo(airport.getAirportName()) < 0) {
                 noOfTerminals = airport.getNoOfTerminals();
                 airportName = airport.getAirportName();
             }

@@ -129,6 +129,8 @@ public class AirportRepository {
 
         if (flight.getMaxCapacity() == flightPassengerMap.get(flightId).size() || passengerFlightMap.get(passengerId).contains(flightId)) {
             return "FAILURE";
+        } else if (flightPassengerMap.get(flightId).contains(passengerId)) {
+            return "FAILURE";
         } else {
             // do booking
             // 1. add passenger against flight
@@ -153,6 +155,9 @@ public class AirportRepository {
         // then return a "FAILURE" message
         // Otherwise return a "SUCCESS" message
         // and also cancel the ticket that passenger had booked earlier on the given flightId
+
+        if (flightMap.containsKey(flightId) == false) return "FAILURE";
+        if (passengerMap.containsKey(passengerId) == false) return "FAILURE";
 
         List<Integer> flightList = passengerFlightMap.getOrDefault(passengerId, new ArrayList<>());
 
