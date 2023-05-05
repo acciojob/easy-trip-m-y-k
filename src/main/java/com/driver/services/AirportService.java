@@ -26,28 +26,7 @@ public class AirportService {
 
     public String getLargestAirportName() {
 
-        // get all airport list
-        // filter them on terminal size and
-        // return the airport with highest no of terminals
-
-        List<Airport> airportList = airportRepository.getAllAirports();
-
-        String airportName = null;
-        int noOfTerminals = 0;
-
-        // iterate over airport list
-        for (Airport airport : airportList) {
-
-            if (noOfTerminals < airport.getNoOfTerminals()) {
-                noOfTerminals = airport.getNoOfTerminals();
-                airportName = airport.getAirportName();
-            } else if (noOfTerminals == airport.getNoOfTerminals() && airportName.compareTo(airport.getAirportName()) < 0) {
-                noOfTerminals = airport.getNoOfTerminals();
-                airportName = airport.getAirportName();
-            }
-        }
-
-        return airportName;
+       return airportRepository.getLargestAirportName();
     }
 
     public double getShortestDurationOfPossibleBetweenTwoCities(City fromCity, City toCity) {

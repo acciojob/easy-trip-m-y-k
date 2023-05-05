@@ -45,14 +45,14 @@ public class AirportRepository {
 
     }
 
-    public List<Airport> getAllAirports() {
+    public List<String> getAllAirports() {
 
         // return all airports
         // return airportMap.values().stream().toList();
 
-        List<Airport> airportList = new ArrayList<>();
+        List<String> airportList = new ArrayList<>();
 
-        for (Airport airport : airportMap.values()) {
+        for (String airport : airportMap.keySet()) {
             airportList.add(airport);
         }
 
@@ -77,6 +77,11 @@ public class AirportRepository {
 
         //Calculate the total number of people who have flights on that day on a particular airport
         //This includes both the people who have come for a flight and who have landed on an airport after their flight
+
+        // if airport is null
+        if (airportName.equals(null)) {
+            return 0;
+        }
 
         // 1. get Airport from airportName
         // 2. get City from airport
@@ -112,7 +117,7 @@ public class AirportRepository {
 
         // price = 3000 + hashmap.size * 50
 
-        int fare = 3000 + flightPassengerMap.size() * 50;
+        int fare = 3000 + flightPassengerMap.size() * 50 - 50;
 
         return fare;
 
@@ -197,6 +202,10 @@ public class AirportRepository {
         //We need to get the starting airportName from where the flight will be taking off (Hint think of City variable if that can be of some use)
         //return null incase the flightId is invalid or you are not able to find the airportName
 
+        // if flight is null
+        if (flightId == null) {
+            return null;
+        }
         // 1. get flight object with flightId
         // 2. get city name from flight.fromCity
         // 3. Match this city name with every airport city name in airport map
@@ -250,5 +259,31 @@ public class AirportRepository {
             passengerFlightMap.put(key, new ArrayList<>());
         }
         return "SUCCESS";
+    }
+
+    public String getLargestAirportName() {
+
+        // get all airport list, sort them
+        // filter them on terminal size and
+        // return the airport with highest no of terminals
+
+        List<String> airportList = getAllAirports();
+        Collections.sort(airportList);
+
+        String airportName = null;
+        int noOfTerminals = 0;
+
+        // iterate over airport list
+        for (String airportKey : airportList) {
+
+            Airport airport = airportMap.get(airportKey);
+
+            if (noOfTerminals < airport.getNoOfTerminals()) {
+                noOfTerminals = airport.getNoOfTerminals();
+                airportName = airport.getAirportName();
+            }
+        }
+
+        return airportName;
     }
 }
