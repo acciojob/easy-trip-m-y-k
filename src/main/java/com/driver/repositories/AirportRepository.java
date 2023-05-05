@@ -214,13 +214,14 @@ public class AirportRepository {
 
         City city = flight.getFromCity();
 
+        String ansAirport = null;
         for (Airport airport : airportMap.values()) {
 
             if (airport.getCity().equals(city)) {
-                return airport.getAirportName();
+                ansAirport =  airport.getAirportName();
             }
         }
-        return null;
+        return ansAirport;
     }
 
     public int calculateRevenueOfAFlight(Integer flightId) {
